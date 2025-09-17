@@ -85,9 +85,9 @@ malvin({
         const nodeVersion = process.version;
 
         // Owner & bot name
-        const ownerName = config.OWNER_NAME || 'Marisel';
-        const botName = config.BOT_NAME || '𝖒𝖆𝖗𝖎𝖘𝖊𝖑';
-        const repoLink = config.REPO || 'https://github.com/betingrich4/Mercedes';
+        const ownerName = config.OWNER_NAME || 'caseyrhodes';
+        const botName = config.BOT_NAME || 'caseyrhodes';
+        const repoLink = config.REPO || 'https://github.com/caseyweb/CASEYRHODES-XMD';
 
         // Final output
         const pingMsg = `
@@ -110,22 +110,32 @@ malvin({
 ${loadingBar}
 `.trim();
 
+        // Context info for newsletter with external ad
+        const contextInfo = {
+            mentionedJid: [sender],
+            forwardingScore: 999,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '120363405292255480@newsletter',
+                newsletterName: `ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ🎀`,
+                serverMessageId: 143
+            },
+            externalAdReply: {
+                title: 'ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ🌸',
+                body: 'ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴀɪ ʙᴏᴛ',
+                mediaType: 1,
+                sourceUrl: 'https://whatsapp.com/channel/0029VaExampleChannel',
+                thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg'
+            }
+        };
+
         // Send message with retry
         attempts = 0;
         while (attempts < maxAttempts) {
             try {
                 await malvin.sendMessage(from, {
                     text: pingMsg,
-                    contextInfo: {
-                        mentionedJid: [sender],
-                        forwardingScore: 999,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363299029326322@newsletter',
-                            newsletterName: `𝖒𝖆𝖗𝖎𝖘𝖊𝖑`,
-                            serverMessageId: 143
-                        }
-                    }
+                    contextInfo: contextInfo
                 }, { quoted: mek });
                 break;
             } catch (sendError) {
