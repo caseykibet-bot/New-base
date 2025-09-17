@@ -75,17 +75,16 @@ malvin({
       return `${h}h ${m}m ${s}s`;
     };
 
-    let menu = `
-*┏────〘 ᴍᴇʀᴄᴇᴅᴇs 〙───⊷*
+    let menu = `*╭───────────────────⊷*
 *┃ ᴜꜱᴇʀ : @${sender.split("@")[0]}*
 *┃ ʀᴜɴᴛɪᴍᴇ : ${uptime()}*
 *┃ ᴍᴏᴅᴇ : ${config.MODE}*
 *┃ ᴘʀᴇғɪx : 「 ${config.PREFIX}」* 
 *┃ ᴏᴡɴᴇʀ : ${config.OWNER_NAME}*
 *┃ ᴘʟᴜɢɪɴꜱ : 『 ${commands.length} 』*
-*┃ ᴅᴇᴠ : ᴍᴀʀɪsᴇʟ*
+*┃ ᴅᴇᴠ : ᴄᴀsᴇʏʀʜᴏᴅᴇs 🎀*
 *┃ ᴠᴇʀꜱɪᴏɴ : 2.0.0*
-*┗──────────────⊷*`;
+*╰──────────────────⊷*`;
 
     // Group commands by category (improved logic)
     const categories = {};
@@ -93,31 +92,39 @@ malvin({
       if (cmd.category && !cmd.dontAdd && cmd.pattern) {
         const normalizedCategory = normalize(cmd.category);
         categories[normalizedCategory] = categories[normalizedCategory] || [];
-        categories[normalizedCategory].push(cmd.pattern.split('|')[0]);
+        // Extract just the command name without prefix
+        const commandName = cmd.pattern.split('|')[0].trim();
+        categories[normalizedCategory].push(commandName);
       }
     }
 
     // Add sorted categories with stylized text
     for (const cat of Object.keys(categories).sort()) {
       const emoji = emojiByCategory[cat] || '💫';
-      menu += `\n\n*┏─『 ${emoji} ${toUpperStylized(cat)} ${toUpperStylized('Menu')} 』──⊷*\n`;
+      menu += `\n\n*╭───『 ${emoji} ${toUpperStylized(cat)} ${toUpperStylized('Menu')} 』──⊷*\n`;
       for (const cmd of categories[cat].sort()) {
-        menu += `*│ ${prefix}${cmd}*\n`;
+        menu += `*│ ✘${cmd}*\n`; // Using ✘ instead of prefix
       }
-      menu += `*┗──────────────⊷*`;
+      menu += `*╰───────────────⊷*`;
     }
 
     menu += `\n\n> ${config.DESCRIPTION || toUpperStylized('Explore the bot commands!')}`;
-
-    // Context info for image message
+    
+    // Context info for newsletter with external ad
     const imageContextInfo = {
-      mentionedJid: [sender],
-      forwardingScore: 999,
+      forwardingScore: 1,
       isForwarded: true,
       forwardedNewsletterMessageInfo: {
-        newsletterJid: config.NEWSLETTER_JID || '120363299029326322@newsletter',
-        newsletterName: config.OWNER_NAME || toUpperStylized('marisel'),
-        serverMessageId: 143
+        newsletterJid: '120363405292255480@newsletter',
+        newsletterName: 'ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs 🎀',
+        serverMessageId: -1
+      },
+      externalAdReply: {
+        title: 'ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ',
+        body: 'ᴄᴀsᴇʏʀʜᴏᴅᴇs ʙᴏᴛ',
+        mediaType: 1,
+        sourceUrl: 'https://whatsapp.com/channel/0029VaExampleChannel',
+        thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg'
       }
     };
 
@@ -125,35 +132,13 @@ malvin({
     await malvin.sendMessage(
       from,
       {
-        image: { url: config.MENU_IMAGE_URL || 'https://url.bwmxmd.online/Adams.zjrmnw18.jpeg' },
+        image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg' },
         caption: menu,
-        contextInfo: imageContextInfo
+        contextInfo: imageContextInfo,
+        mentions: [sender]
       },
       { quoted: mek }
     );
-
-    // Send audio if configured
-    if (config.MENU_AUDIO_URL) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      await malvin.sendMessage(
-        from,
-        {
-          audio: { url: config.MENU_AUDIO_URL },
-          mimetype: 'audio/mp4',
-          ptt: true,
-          contextInfo: {
-            mentionedJid: [sender],
-            forwardingScore: 999,
-            isForwarded: true,
-            forwardedNewsletterMessageInfo: {
-              newsletterName: config.OWNER_NAME || toUpperStylized('marisel'),
-              serverMessageId: 143
-            }
-          }
-        },
-        { quoted: mek }
-      );
-    }
 
   } catch (e) {
     console.error('Menu Error:', e.message);
