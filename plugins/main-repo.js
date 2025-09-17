@@ -11,8 +11,8 @@ malvin({
     filename: __filename,
 },
 async (conn, mek, m, { from, reply }) => {
-    const githubRepoURL = 'https://github.com/betingrich4/Mercedes';
-    const imageURL = 'https://url.bwmxmd.online/Adams.xm472dqv.jpeg';
+    const githubRepoURL = 'https://github.com/caseyweb/CASEYRHODES-XMD';
+    const imageURL = 'https://files.catbox.moe/6wfq18.jpg';
 
     try {
         const match = githubRepoURL.match(/github\.com\/([^/]+)\/([^/]+)/);
@@ -23,7 +23,7 @@ async (conn, mek, m, { from, reply }) => {
         if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
         const repoData = await response.json();
 
-        const botname = "ᴍᴇʀᴄᴇᴅᴇs";
+        const botname = "ᴄᴀsᴇʏʀʜᴏᴅᴇs";
         const author = repoData.owner?.login || "Unknown";
         const repoInfo = {
             stars: repoData.stargazers_count,
@@ -33,16 +33,16 @@ async (conn, mek, m, { from, reply }) => {
         const createdDate = new Date(repoData.created_at).toLocaleDateString();
         const lastUpdateDate = new Date(repoData.updated_at).toLocaleDateString();
 
-        const caption = `*ʜᴇʟʟᴏ ,,, ᴛʜɪs ɪs ${botname}*
+        const caption = `*ʜᴇʟʟᴏ ,,, ᴛʜɪs ɪs ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ🎀*
 ғᴏʀᴋ ᴀɴᴅ ɢɪᴠᴇ ᴀ sᴛᴀʀ ᴛᴏ ᴍʏ ʀᴇᴘᴏ
-┏──────────────⊷
+╭──────────────⊷
 │ *sᴛᴀʀs:* ${repoInfo.stars}
 │ *ғᴏʀᴋs:* ${repoInfo.forks}
 │ *ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ:* ${createdDate}
 │ *ʟᴀsᴛ ᴜᴘᴅᴀᴛᴇ:* ${lastUpdateDate}
 │ *ᴏᴡɴᴇʀ:* ${author}
 │ *ʀᴇᴘᴏsɪᴛᴏʀʏ:* ${repoInfo.url}
-┗──────────────⊷`;
+╰──────────────⊷`;
 
         // Download remote image
         const imgResponse = await fetch(imageURL);
@@ -57,8 +57,8 @@ async (conn, mek, m, { from, reply }) => {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: config.NEWSLETTER_JID || '120363299029326322@newsletter',
-                    newsletterName: '𝖒𝖆𝖗𝖎𝖘𝖊𝖑',
+                    newsletterJid: config.NEWSLETTER_JID || '120363405292255480@newsletter',
+                    newsletterName: 'ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ🎀',
                     serverMessageId: 143
                 }
             }
