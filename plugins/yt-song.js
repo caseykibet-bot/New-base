@@ -65,7 +65,7 @@ async function sendAudio(malvin, chat, audioBuffer, fileName, type, caption, quo
 malvin(
     {
         pattern: 'song',
-        alias: ['ytaudio', 'music'],
+        alias: ['play', 'music'],
         desc: 'High quality YouTube audio downloader',
         category: 'media',
         react: '🎵',
@@ -92,7 +92,7 @@ malvin(
             const thumbnailBuffer = await fetchThumbnail(videoInfo.thumbnail);
 
             // Prepare ASCII-art message
-            const caption = `╭──〔sᴏɴɢ ᴅʟ 〕──
+            const caption = `╭───────────
 ├ᴛɪᴛʟᴇ: ${songData.title || videoInfo?.title || 'Unknown'}
 ├ᴀᴜᴛʜᴏʀ: ${videoInfo?.author?.name || 'Unknown'}
 ├ᴅᴜʀᴀᴛɪᴏɴ: ${videoInfo?.timestamp || 'Unknown'}
@@ -108,7 +108,7 @@ malvin(
             const buttonsMessage = {
                 image: thumbnailBuffer,
                 caption,
-                footer: Config.FOOTER || '> ᴍᴀᴅᴇ ʙʏ ᴍᴀʀɪsᴇʟ',
+                footer: Config.FOOTER || '> ᴍᴀᴅᴇ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ🎀',
                 buttons: [
                     {
                         buttonId: `song-audio-${sessionId}-${videoUrl}`,
