@@ -271,76 +271,77 @@ async function connectToWA() {
       }
 
       // Send connection message
-try {
-  await sleep(2000);
-  const jid = malvin.decodeJid(malvin.user.id);
-  if (!jid) throw new Error("Invalid JID for bot");
+      try {
+        await sleep(2000);
+        const jid = malvin.decodeJid(malvin.user.id);
+        if (!jid) throw new Error("Invalid JID for bot");
 
-  const botname = "ᴍᴇʀᴄᴇᴅᴇs";
-  const ownername = "ᴍᴀʀɪsᴇʟ";
-  const prefix = getPrefix();
-  const username = "betingrich4";
-  const mrmalvin = `https://github.com/${username}`;
-  const repoUrl = "https://github.com/betingrich4/Mercedes";
-  const welcomeAudio = "https://files.catbox.moe/z47dgd.p3";
-  
-  // Get current date and time
-  const currentDate = new Date();
-  const date = currentDate.toLocaleDateString();
-  const time = currentDate.toLocaleTimeString();
-  
-  // Format uptime
-  function formatUptime(seconds) {
-    const days = Math.floor(seconds / (24 * 60 * 60));
-    seconds %= 24 * 60 * 60;
-    const hours = Math.floor(seconds / (60 * 60));
-    seconds %= 60 * 60;
-    const minutes = Math.floor(seconds / 60);
-    seconds = Math.floor(seconds % 60);
-    
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
-  
-  const uptime = formatUptime(process.uptime());
+        const botname = "ᴍᴇʀᴄᴇᴅᴇs";
+        const ownername = "ᴍᴀʀɪsᴇʟ";
+        const prefix = getPrefix();
+        const username = "betingrich4";
+        const mrmalvin = `https://github.com/${username}`;
+        const repoUrl = "https://github.com/betingrich4/Mercedes";
+        
+        // Get current date and time
+        const currentDate = new Date();
+        const date = currentDate.toLocaleDateString();
+        const time = currentDate.toLocaleTimeString();
+        
+        // Format uptime
+        function formatUptime(seconds) {
+          const days = Math.floor(seconds / (24 * 60 * 60));
+          seconds %= 24 * 60 * 60;
+          const hours = Math.floor(seconds / (60 * 60));
+          seconds %= 60 * 60;
+          const minutes = Math.floor(seconds / 60);
+          seconds = Math.floor(seconds % 60);
+          
+          return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+        
+        const uptime = formatUptime(process.uptime());
 
-  const upMessage = `
+        // Newsletter follow status
+        const newsletterChannels = [
+          "120363299029326322@newsletter",
+          "120363401297349965@newsletter",
+          "120363339980514201@newsletter",
+        ];
+
+        const upMessage = `
 *┏──〔 Connected 〕───⊷*   
 *┇ Prefix: ${prefix}*
 *┇ Date: ${date}*
 *┇ Time: ${time}*
 *┇ Uptime: ${uptime}*
 *┇ Owner: ${ownername}*
+*┇ Newsletter: Following ${newsletterChannels.length} channels*
 *┇ Follow Channel:*  
 *┇ https://shorturl.at/DYEi0*
 *┗──────────────⊷*
 > *Report any error to the dev*`;
 
-  try {
-    await malvin.sendMessage(jid, {
-      image: { url: "https://url.bwmxmd.online/Adams.xm472dqv.jpeg" },
-      caption: upMessage,
-    }, { quoted: null });
-    console.log(chalk.green("[ 📩 ] Connection notice sent successfully with image"));
+        try {
+          // Send single message with image and caption
+          await malvin.sendMessage(jid, {
+            image: { url: "https://url.bwmxmd.online/Adams.xm472dqv.jpeg" },
+            caption: upMessage,
+          }, { quoted: null });
+          console.log(chalk.green("[ 📩 ] Connection notice sent successfully with image"));
+        } catch (imageError) {
+          console.error(chalk.yellow("[ ⚠️ ] Image failed, sending text-only:"), imageError.message);
+          await malvin.sendMessage(jid, { text: upMessage });
+          console.log(chalk.green("[ 📩 ] Connection notice sent successfully as text"));
+        }
+      } catch (sendError) {
+        console.error(chalk.red(`[ 🔴 ] Error sending connection notice: ${sendError.message}`));
+        await malvin.sendMessage(ownerNumber[0], {
+          text: `Failed to send connection notice: ${sendError.message}`,
+        });
+      }
 
-    await malvin.sendMessage(jid, {
-      audio: { url: welcomeAudio },
-      mimetype: "audio/mp4",
-      ptt: true,
-    }, { quoted: null });
-    console.log(chalk.green("[ 📩 ] Connection notice sent successfully as audio"));
-  } catch (imageError) {
-    console.error(chalk.yellow("[ ⚠️ ] Image failed, sending text-only:"), imageError.message);
-    await malvin.sendMessage(jid, { text: upMessage });
-    console.log(chalk.green("[ 📩 ] Connection notice sent successfully as text"));
-  }
-} catch (sendError) {
-  console.error(chalk.red(`[ 🔴 ] Error sending connection notice: ${sendError.message}`));
-  await malvin.sendMessage(ownerNumber[0], {
-    text: `Failed to send connection notice: ${sendError.message}`,
-  });
-}
-
-// Follow newsletters
+      // Follow newsletters
       const newsletterChannels = [                      "120363299029326322@newsletter",
         "120363401297349965@newsletter",
         "120363339980514201@newsletter",
@@ -704,7 +705,7 @@ if (!isReact && senderNumber === botNumber) {
         return (
           (decode.user &&
             decode.server &&
-            decode.user + '@' + decode.server) ||
+            (decode.user + '@' + decode.server)) ||
           jid
         );
       } else return jid;
