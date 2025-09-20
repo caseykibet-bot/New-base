@@ -93,8 +93,22 @@ malvin({
 *┃ ᴘʟᴜɢɪɴꜱ : 『 ${commands.length} 』*
 *┃ ᴅᴇᴠ : ᴄᴀsᴇʏʀʜᴏᴅᴇs 🎀*
 *┃ ᴠᴇʀꜱɪᴏɴ : 2.0.0*
-*╰──────────────────⊷*
-${readmore}`;
+*╰──────────────────⊷*${readmore}`;
+
+    // Define fakevCard for quoting messages - FIXED VCARD FORMAT
+    const fakevCard = {
+        key: {
+            fromMe: false,
+            participant: "0@s.whatsapp.net",
+            remoteJid: "status@broadcast"
+        },
+        message: {
+            contactMessage: {
+                displayName: "© ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴠᴇʀɪғɪᴇᴅ ✅",
+                vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;Meta;;;\nFN:Meta\nORG:META AI;\nTEL;type=CELL;type=VOICE;waid=254101022551:+254 101 022 551\nEND:VCARD`
+            }
+        }
+    };
 
     // Group commands by category
     const categories = {};
@@ -140,7 +154,7 @@ ${readmore}`;
         mediaType: 1,
         previewType: 0,
         sourceUrl: 'https://whatsapp.com/channel/0029VaExampleChannel',
-        thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/awc1lu.jpeg',
+        thumbnailUrl:'https://files.catbox.moe/awc1lu.jpeg',
         mediaUrl: ''
       }
     };
@@ -149,12 +163,12 @@ ${readmore}`;
     await malvin.sendMessage(
       from,
       {
-        image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/awc1lu.jpeg' },
+        image:  { url: 'https://files.catbox.moe/awc1lu.jpeg' },
         caption: menu,
         contextInfo: imageContextInfo,
         mentions: [sender]
       },
-      { quoted: mek }
+      { quoted: fakevCard } // Use the fixed vCard as quoted message
     );
 
   } catch (e) {
