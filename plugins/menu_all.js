@@ -154,7 +154,7 @@ malvin({
         mediaType: 1,
         previewType: 0,
         sourceUrl: 'https://whatsapp.com/channel/0029VaExampleChannel',
-        thumbnailUrl:'https://files.catbox.moe/awc1lu.jpeg',
+        thumbnailUrl:'https://files.catbox.moe/52dotx.jpg',
         mediaUrl: ''
       }
     };
