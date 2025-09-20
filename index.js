@@ -7,7 +7,7 @@ process.on("unhandledRejection", (reason, p) => {
   console.error("[❗] Unhandled Promise Rejection:", reason);
 });
 
-// Marisel
+// caseyrhodes 
 
 const axios = require("axios");
 const config = require("./settings");
@@ -276,12 +276,12 @@ async function connectToWA() {
         const jid = malvin.decodeJid(malvin.user.id);
         if (!jid) throw new Error("Invalid JID for bot");
 
-        const botname = "ᴍᴇʀᴄᴇᴅᴇs";
-        const ownername = "ᴍᴀʀɪsᴇʟ";
+        const botname = "Caseyrhodes";
+        const ownername = "caseyweb";
         const prefix = getPrefix();
-        const username = "betingrich4";
+        const username = "caswyweb";
         const mrmalvin = `https://github.com/${username}`;
-        const repoUrl = "https://github.com/betingrich4/Mercedes";
+        const repoUrl = "https://github.com/caseyweb/CASEYRHODES-XMD";
         
         // Get current date and time
         const currentDate = new Date();
@@ -325,7 +325,7 @@ async function connectToWA() {
         try {
           // Send single message with image and caption
           await malvin.sendMessage(jid, {
-            image: { url: "https://url.bwmxmd.online/Adams.xm472dqv.jpeg" },
+            image: { url: "https://files.catbox.moe/jker7x.jpg" },
             caption: upMessage,
           }, { quoted: null });
           console.log(chalk.green("[ 📩 ] Connection notice sent successfully with image"));
