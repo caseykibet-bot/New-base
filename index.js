@@ -130,7 +130,7 @@ async function loadSession() {
       return null;
     }
 
-    if (config.SESSION_ID.startsWith("CASEY-AI~")) {
+    if (config.SESSION_ID.startsWith("Mercedes~")) {
       console.log(chalk.yellow("[ ⏳ ] Decoding base64 session..."));
       const base64Data = config.SESSION_ID.replace("Mercedes~", "");
       if (!/^[A-Za-z0-9+/=]+$/.test(base64Data)) {
