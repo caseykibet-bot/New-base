@@ -75,6 +75,7 @@ malvin({
     const timezone = config.TIMEZONE || 'Africa/Nairobi';
     const time = moment().tz(timezone).format('HH:mm:ss');
     const date = moment().tz(timezone).format('dddd, DD MMMM YYYY');
+    const pushname = malvin.getName(sender) || 'User';
 
     const uptime = () => {
       let sec = process.uptime();
@@ -84,7 +85,10 @@ malvin({
       return `${h}h ${m}m ${s}s`;
     };
 
-    let menu = `*╭───────────────────⊷*
+    let menu = `*🌟 *Good ${
+  new Date().getHours() < 12 ? 'Morning' : 
+  (new Date().getHours() < 18 ? 'Afternoon' : 'Evening')
+}, ${pushname}!* 🌸╭───────────────────⊷*
 *┃ ᴜꜱᴇʀ : @${sender.split("@")[0]}*
 *┃ ʀᴜɴᴛɪᴍᴇ : ${uptime()}*
 *┃ ᴍᴏᴅᴇ : ${config.MODE || 'public'}*
