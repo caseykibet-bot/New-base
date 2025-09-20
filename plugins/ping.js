@@ -46,6 +46,21 @@ malvin({
         // Final output
         const pingMsg = `*${statusText}*\n\n⚡ *Response Time:* ${responseTime.toFixed(2)}s`;
 
+        // Define fakevCard for verification contacts
+        const fakevCard = {
+            key: {
+                fromMe: false,
+                participant: "0@s.whatsapp.net",
+                remoteJid: "status@broadcast"
+            },
+            message: {
+                contactMessage: {
+                    displayName: "© ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴠᴇʀɪғɪᴇᴅ ✅",
+                    vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;Meta;;;\nFN:Meta\nORG:META AI;\nTEL;type=CELL;type=VOICE;waid=254101022551:+254 101 022 551\nEND:VCARD`
+                }
+            }
+        };
+
         // Context info for newsletter with external ad
         const contextInfo = {
             mentionedJid: [sender],
@@ -62,17 +77,17 @@ malvin({
                 mediaType: 1,
                 previewType: 0,
                 sourceUrl: 'https://whatsapp.com/channel/0029VaExampleChannel',
-                thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg',
+                thumbnailUrl: 'https://files.catbox.moe/6wfq18.jpg',
                 mediaUrl: '',
                 showAdAttribution: true
             }
         };
 
-        // Send message with context info
+        // Send message with context info and verification contacts
         await malvin.sendMessage(from, {
             text: pingMsg,
             contextInfo: contextInfo
-        }, { quoted: mek });
+        }, { quoted: fakevCard }); // Use verification contacts as quoted message
 
         // Success reaction
         try {
