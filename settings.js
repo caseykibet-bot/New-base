@@ -25,7 +25,7 @@ module.exports = {
 
   // ===== OWNER & DEVELOPER SETTINGS =====
   OWNER_NUMBER: settings.OWNER_NUMBER || process.env.OWNER_NUMBER || "254781496274", // Owner's WhatsApp number
-  OWNER_NAME: getConfig("OWNER_NAME") || process.env.OWNER_NAME || "Marisel", // Owner's name
+  OWNER_NAME: getConfig("OWNER_NAME") || process.env.OWNER_NAME || "caseyrhodes", // Owner's name
   DEV: process.env.DEV || "254740007567", // Developer's contact
   DEVELOPER_NUMBER: '254101022551@s.whatsapp.net', // Developer's WhatsApp ID
   
@@ -43,7 +43,7 @@ module.exports = {
   AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*Just seen ur status 😆 🤖*", // Status reply message
   READ_MESSAGE: getConfig("READ_MESSAGE") || process.env.READ_MESSAGE || "false", // Mark messages as read
   REJECT_MSG: process.env.REJECT_MSG || "*📵 Calls are not allowed on this number unless you have permission. 🚫*", // Call rejection message
-  ALIVE_IMG: getConfig("ALIVE_IMG") || process.env.ALIVE_IMG || "https://files.catbox.moe/6wfq18.jpg", // Alive image
+  ALIVE_IMG: getConfig("ALIVE_IMG") || process.env.ALIVE_IMG || "https://files.catbox.moe/awc1lu.jpeg", // Alive image
   LIVE_MSG: process.env.LIVE_MSG || "> ʙᴏᴛ ɪs sᴘᴀʀᴋɪɴɢ ᴀᴄᴛɪᴠᴇ ᴀɴᴅ ᴀʟɪᴠᴇ\n\n\n> ɢɪᴛʜᴜʙ :https://github.com/caseyweb/CASEYRHODES-XMD", // Alive message
 
   // ===== REACTION & STICKER SETTINGS =====
@@ -58,7 +58,7 @@ module.exports = {
   AUTO_RECORDING: getConfig("AUTO_RECORDING") || process.env.AUTO_RECORDING || "false", // Auto-record voice notes
   AUTO_TYPING: getConfig("AUTO_TYPING") || process.env.AUTO_TYPING || "false", // Show typing indicator
   MENTION_REPLY: getConfig("MENTION_REPLY") || process.env.MENTION_REPLY || "false", // Reply to mentions
-  MENU_IMAGE_URL: getConfig("MENU_IMAGE_URL") || process.env.MENU_IMAGE_URL || "https://files.catbox.moe/6wfq18.jpg", // Menu image
+  MENU_IMAGE_URL: getConfig("MENU_IMAGE_URL") || process.env.MENU_IMAGE_URL || "https://files.catbox.moe/awc1lu.jpeg", // Menu image
 
   // ===== SECURITY & ANTI-FEATURES =====
   ANTI_DELETE: getConfig("ANTI_DELETE") || process.env.ANTI_DELETE || "true", // Prevent message deletion
