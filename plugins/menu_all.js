@@ -140,7 +140,7 @@ ${readmore}`;
         mediaType: 1,
         previewType: 0,
         sourceUrl: 'https://whatsapp.com/channel/0029VaExampleChannel',
-        thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg',
+        thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/awc1lu.jpeg',
         mediaUrl: ''
       }
     };
@@ -149,7 +149,7 @@ ${readmore}`;
     await malvin.sendMessage(
       from,
       {
-        image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg' },
+        image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/awc1lu.jpeg' },
         caption: menu,
         contextInfo: imageContextInfo,
         mentions: [sender]
