@@ -40,7 +40,7 @@ function isGreeting(text) {
 
 // Enhanced Marisel AI with Gifted Tech Groq API
 malvin({
-  pattern: 'marisel',
+  pattern: 'casey',
   alias: ['ds', 'deepseek'],
   desc: 'Ask Marisel AI a question',
   category: 'ai',
