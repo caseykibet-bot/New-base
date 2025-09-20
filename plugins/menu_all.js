@@ -167,7 +167,7 @@ malvin({
     await malvin.sendMessage(
       from,
       {
-        image:  { url: 'https://files.catbox.moe/awc1lu.jpeg' },
+        image:  { url: 'https://files.catbox.moe/dbjrbp.jpg' },
         caption: menu,
         contextInfo: imageContextInfo,
         mentions: [sender]
