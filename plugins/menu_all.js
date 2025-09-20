@@ -4,6 +4,8 @@ const { malvin, commands } = require('../malvin');
 const { runtime } = require('../lib/functions');
 const os = require('os');
 const { getPrefix } = require('../lib/prefix');
+const more = String.fromCharCode(8206);
+const readmore = more.repeat(4001);
 
 // Fonction pour styliser les majuscules comme ʜɪ
 function toUpperStylized(str) {
@@ -11,13 +13,20 @@ function toUpperStylized(str) {
     A: 'ᴀ', B: 'ʙ', C: 'ᴄ', D: 'ᴅ', E: 'ᴇ', F: 'ғ', G: 'ɢ', H: 'ʜ',
     I: 'ɪ', J: 'ᴊ', K: 'ᴋ', L: 'ʟ', M: 'ᴍ', N: 'ɴ', O: 'ᴏ', P: 'ᴘ',
     Q: 'ǫ', R: 'ʀ', S: 's', T: 'ᴛ', U: 'ᴜ', V: 'ᴠ', W: 'ᴡ', X: 'x',
-    Y: 'ʏ', Z: 'ᴢ'
+    Y: 'ʏ', Z: 'ᴢ',
+    a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ғ', g: 'ɢ', h: 'ʜ',
+    i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ',
+    q: 'ǫ', r: 'ʀ', s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x',
+    y: 'ʏ', z: 'ᴢ'
   };
-  return str.split('').map(c => stylized[c.toUpperCase()] || c).join('');
+  return str.split('').map(c => stylized[c] || c).join('');
 }
 
 // Normalisation des catégories
-const normalize = (str) => str.toLowerCase().replace(/\s+menu$/, '').trim();
+const normalize = (str) => {
+  if (!str) return 'other';
+  return str.toLowerCase().replace(/\s+menu$/, '').trim() || 'other';
+};
 
 // Emojis par catégorie normalisée
 const emojiByCategory = {
@@ -55,7 +64,7 @@ const emojiByCategory = {
 
 malvin({
   pattern: 'menu',
-  alias: ['allmenu'],
+  alias: ['allmenu', 'help', 'commands'],
   desc: 'Show all bot commands',
   category: 'menu',
   react: '👌',
@@ -78,32 +87,38 @@ malvin({
     let menu = `*╭───────────────────⊷*
 *┃ ᴜꜱᴇʀ : @${sender.split("@")[0]}*
 *┃ ʀᴜɴᴛɪᴍᴇ : ${uptime()}*
-*┃ ᴍᴏᴅᴇ : ${config.MODE}*
-*┃ ᴘʀᴇғɪx : 「 ${config.PREFIX}」* 
-*┃ ᴏᴡɴᴇʀ : ${config.OWNER_NAME}*
+*┃ ᴍᴏᴅᴇ : ${config.MODE || 'public'}*
+*┃ ᴘʀᴇғɪx : 「 ${prefix}」* 
+*┃ ᴏᴡɴᴇʀ : ${config.OWNER_NAME || 'Unknown'}*
 *┃ ᴘʟᴜɢɪɴꜱ : 『 ${commands.length} 』*
 *┃ ᴅᴇᴠ : ᴄᴀsᴇʏʀʜᴏᴅᴇs 🎀*
 *┃ ᴠᴇʀꜱɪᴏɴ : 2.0.0*
-*╰──────────────────⊷*`;
+*╰──────────────────⊷*
+${readmore}`;
 
-    // Group commands by category (improved logic)
+    // Group commands by category
     const categories = {};
     for (const cmd of commands) {
       if (cmd.category && !cmd.dontAdd && cmd.pattern) {
         const normalizedCategory = normalize(cmd.category);
         categories[normalizedCategory] = categories[normalizedCategory] || [];
-        // Extract just the command name without prefix
-        const commandName = cmd.pattern.split('|')[0].trim();
+        
+        // Extract command name without prefix
+        const commandPattern = cmd.pattern.split('|')[0].trim();
+        const commandName = commandPattern.replace(/^[\\/*]/, ''); // Remove leading special chars
         categories[normalizedCategory].push(commandName);
       }
     }
 
     // Add sorted categories with stylized text
-    for (const cat of Object.keys(categories).sort()) {
+    const sortedCategories = Object.keys(categories).sort();
+    for (const cat of sortedCategories) {
       const emoji = emojiByCategory[cat] || '💫';
       menu += `\n\n*╭───『 ${emoji} ${toUpperStylized(cat)} ${toUpperStylized('Menu')} 』──⊷*\n`;
+      
+      // Sort commands alphabetically
       for (const cmd of categories[cat].sort()) {
-        menu += `*│ ✘${cmd}*\n`; // Using ✘ instead of prefix
+        menu += `*│ ✘ ${cmd}*\n`;
       }
       menu += `*╰───────────────⊷*`;
     }
@@ -123,8 +138,10 @@ malvin({
         title: 'ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ',
         body: 'ᴄᴀsᴇʏʀʜᴏᴅᴇs ʙᴏᴛ',
         mediaType: 1,
+        previewType: 0,
         sourceUrl: 'https://whatsapp.com/channel/0029VaExampleChannel',
-        thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg'
+        thumbnailUrl: config.MENU_IMAGE_URL || 'https://files.catbox.moe/6wfq18.jpg',
+        mediaUrl: ''
       }
     };
 
@@ -141,7 +158,7 @@ malvin({
     );
 
   } catch (e) {
-    console.error('Menu Error:', e.message);
+    console.error('Menu Error:', e);
     await reply(`❌ ${toUpperStylized('Error')}: Failed to show menu. Try again.\n${toUpperStylized('Details')}: ${e.message}`);
   }
 });
